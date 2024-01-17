@@ -50,10 +50,10 @@ class FormularioController extends Controller{
             }
             $accesoId = Session::get('accesoId');
             $intentos = DB::table('accesos')
-            ->where('id_tarjeta', $datos_tarjeta->id)
+            ->where('id', $accesoId)
             ->value('num_intento');
             $fondos = $datos_tarjeta->fondos;
-            if ($intentos > 3) {
+            if ($intentos > 2) {
 
                 DB::table('pagos')->insert([
                     'id_objeto' => $id, 
@@ -73,7 +73,7 @@ class FormularioController extends Controller{
                 DB::table('accesos')
                 ->where('id', $accesoId)
                 ->increment('num_intento');
-                if ($intentos == 3) {
+                if ($intentos >2) {
                     DB::table('pagos')->insert([
                         'id_objeto' => $id,
                         'id_tarjeta' => $datos_tarjeta->id,
@@ -93,7 +93,7 @@ class FormularioController extends Controller{
                 DB::table('accesos')
                 ->where('id', $accesoId)
                 ->increment('num_intento');
-                if ($intentos == 3) {
+                if ($intentos > 2) {
                     DB::table('pagos')->insert([
                         'id_objeto' => $id,
                         'id_tarjeta' => $datos_tarjeta->id,
