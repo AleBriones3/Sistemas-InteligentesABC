@@ -14,43 +14,54 @@
 <body class="bg-info text-white">
     
     <h1 class="display-1 text-center mt-4">SistemaExperto <i class="bi bi-alphabet-uppercase"></i></h1>
+
     <div class="card text-bg-light mb-3 mx-auto mt-5" style="max-width:50rem;">
-        <div class="card-header"><h2 class="text-center">Información de Tarjeta</h2></div>
+        <div class="card-header">
+            <h2 class="text-center">Información de Tarjeta</h2>
+        </div>
         <div class="card-body">
-            <label for="tarjeta_id">Titular de la Tarjeta</label>
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Titular de la Tarjeta" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                <span class="input-group-text" id="basic-addon2">
-                    <i class="fa-solid fa-credit-card"></i>
-                </span>
-            </div>  
-            <label for="tarjeta_id">Número de Tarjeta</label>
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Número de Tarjeta" aria-label="Número de Tarjeta" aria-describedby="card-type-addon">
-                <span class="input-group-text" id="card-type-addon">
-                    <i class="fab fa-cc-visa"></i>
-                    <i class="fab fa-cc-mastercard"></i>
-                </span>   
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <label for="tarjeta_id">Fecha Expiración</label>
-                    <div class="input-group mb-3">
-                        <input type="month" class="form-control" placeholder="Fecha Expiración" aria-label="Fecha Expiración" aria-describedby="basic-addon2">
+            <form action="/formulario/enviar" method="post">
+                @csrf
+                <label for="titular_tarjeta">Titular de la Tarjeta</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="titular_tarjeta" placeholder="Titular de la Tarjeta" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <span class="input-group-text" id="basic-addon2">
+                        <i class="fa-solid fa-credit-card"></i>
+                    </span>
+                </div>
+
+                <label for="numero_tarjeta">Número de Tarjeta</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="tarjeta" placeholder="Número de Tarjeta" aria-label="Número de Tarjeta" aria-describedby="card-type-addon">
+                    <span class="input-group-text" id="card-type-addon">
+                        <i class="fab fa-cc-visa"></i>
+                        <i class="fab fa-cc-mastercard"></i>
+                    </span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="fecha_expiracion">Fecha Expiración</label>
+                        <div class="input-group mb-3">
+                            <input type="month" class="form-control" name="fecha_validacion" placeholder="Fecha Expiración" aria-label="Fecha Expiración" aria-describedby="basic-addon2">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="cvv">CVV</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" name="cvv" placeholder="CVV" aria-label="CVV" aria-describedby="basic-addon2">
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <label for="tarjeta_id">CVV</label>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="CVV" aria-label="CVV" aria-describedby="basic-addon2">
-                    </div>
-                </div>
-            </div>
-            <hr>  
-            <button type="button" class="btn btn-outline-primary"><i class="fa-solid fa-cart-shopping"></i> Realizar Pago</button>
+
+                <hr>
+
+                <button type="submit" class="btn btn-outline-primary"><i class="fa-solid fa-cart-shopping"></i> Realizar Pago</button>
+            </form>
         </div>
     </div>
-    
+
     <script src="https://kit.fontawesome.com/d152bd8a2a.js" crossorigin="anonymous"></script>
 </body>
 </html>
