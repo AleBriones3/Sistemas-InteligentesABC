@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="sweetalert2.all.min.js"></script>
+    <script
+			src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+			integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
     @vite(['resources/js/app.js'])
     <title>TRANSACCIÓN</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-TxCA8XGf7By2DmJT77P5LF5buvyhwE5xFm5oWB7z9Bc5JlLT5giw2x4Iwhd+ZVevi7+wJzDjDZ9D6UHnFIQtaQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -12,6 +20,7 @@
     
 </head>
 <body class="bg-info text-white">
+    @include('partials.alerta')
     
     <h1 class="display-1 text-center mt-4">SistemaExperto <i class="bi bi-alphabet-uppercase"></i></h1>
 
@@ -20,7 +29,7 @@
             <h2 class="text-center">Información de Tarjeta</h2>
         </div>
         <div class="card-body">
-            <form action="/formulario/enviar" method="post">
+            <form action="/pagar" method="post">
                 @csrf
                 <label for="titular_tarjeta">Titular de la Tarjeta</label>
                 <div class="input-group mb-3">
@@ -32,7 +41,7 @@
 
                 <label for="numero_tarjeta">Número de Tarjeta</label>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" name="tarjeta" placeholder="Número de Tarjeta" aria-label="Número de Tarjeta" aria-describedby="card-type-addon">
+                    <input type="text" class="form-control" name="tarjeta" placeholder="Número de Tarjeta" aria-label="Número de Tarjeta" aria-describedby="card-type-addon" required value="{{ old('tarjeta') }}">
                     <span class="input-group-text" id="card-type-addon">
                         <i class="fab fa-cc-visa"></i>
                         <i class="fab fa-cc-mastercard"></i>
@@ -43,14 +52,27 @@
                     <div class="col-md-6">
                         <label for="fecha_expiracion">Fecha Expiración</label>
                         <div class="input-group mb-3">
-                            <input type="month" class="form-control" name="fecha_validacion" placeholder="Fecha Expiración" aria-label="Fecha Expiración" aria-describedby="basic-addon2">
+                            <input type="month" class="form-control" name="fecha_validacion" placeholder="Fecha Expiración" aria-label="Fecha Expiración" aria-describedby="basic-addon2" required value="{{ old('fecha_validacion') }}">
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <label for="cvv">CVV</label>
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" name="cvv" placeholder="CVV" aria-label="CVV" aria-describedby="basic-addon2">
+                            <input type="text" class="form-control" name="cvv" placeholder="CVV" aria-label="CVV" aria-describedby="basic-addon2" required value="{{ old('cvv') }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="objeto">Objeto</label>
+                        <div class="input-group mb-3">
+                            <select class="form-control" name="objeto" id="objeto" required>
+                                <option value="" selected disabled>Selecciona un Producto</option>
+                                @foreach($objetos as $objeto)
+                                <option value="{{ $objeto->id }}" {{ old('objeto') == $objeto->id ? 'selected' : '' }}>{{ $objeto->producto }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>
